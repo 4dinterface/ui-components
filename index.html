@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <script src="components/AbstractComponent-compiled.js"> </script>
+
+    <link rel="stylesheet" href="components/switch/style.css">
+    <script src="components/switch/Component-compiled.js"> </script>
+
+    <link rel="stylesheet" href="components/circles/style.css">
+    <script src="components/circles/Component-compiled.js"> </script>
+
+    <link rel="stylesheet" href="components/color-picker/style.css">
+    <script src="components/color-picker/Component-compiled.js"> </script>
+
+    <link rel="stylesheet" href="components/range/style.css">
+    <script src="components/range/Component-compiled.js"> </script>
+
+    <style>
+      @font-face {
+	    font-family: Milford;
+	    src: url(fonts/Milford_Condensed_Bold.ttf);
+      }
+      body{
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select: none;
+	    font-family: Milford;
+      }
+
+      table{
+        border-collapse: collapse;
+      }
+
+      td{
+        padding:25px;
+      }
+
+      td+td{
+        border-left:1px solid black;
+      }
+
+      tr{
+        border-bottom:1px solid black;
+      }
+
+
+      thead{
+        background:black;
+        color:white;
+      }
+
+      thead td+td{
+        border-left:1px solid white;
+      }
+
+    </style>
+  </head>
+
+  <br>
+    <table>
+      <thead>
+        <tr>
+          <td>Название</td>
+          <td>
+            элемент
+          </td>
+          <td>
+            значение
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>switch</td>
+          <td>
+            <div class="switch" id="switch"></div>
+          </td>
+          <td id="test1"></td>
+        </tr>
+
+        <tr>
+          <td>circle</td>
+          <td>
+            <div id="circles-1"></div>
+          </td>
+          <td id="test2"></td>
+        </tr>
+
+        <tr>
+          <td>picker</td>
+          <td>
+            <div id="picker"> </div>
+          </td>
+          <td id="test3"></td>
+        </tr>
+
+        <tr>
+          <td>picker</td>
+          <td>
+            <div id="range" style="width:200px;height:20px;"> </div>
+          </td>
+          <td id="test4"></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <br/><br/>
+
+
+    <br/></br>
+
+    <br/></br>
+
+
+    <br/></br>
+
+    <script>
+      var switchComp=new Switch({
+            id:"switch"
+          }),
+
+          circle=Circles.create({
+            id:           'circles-1',
+            radius:       60,
+            value:        43,
+            maxValue:     100,
+            width:        10,
+            duration:     400, //?
+            wrpClass:     'circles-wrp',
+            textClass:    'circles-text',
+            styleWrapper: true,
+            /*styleText:    true*/
+          }),
+
+          picker=new ColorPicker({
+            id:"picker"
+          }),
+
+          range=new Range({
+            id:"range"
+          });
+
+
+      switchComp.on("change",function(){
+        document.getElementById("test1").innerHTML=switchComp.value;
+      })
+
+
+      circle.on("change",function(){
+        document.getElementById("test2").innerHTML=circle.value;
+      })
+
+
+      picker.on("change",function(){
+        document.getElementById("test3").innerHTML=picker.value;
+      }),
+
+      range.on("change",function(){
+        document.getElementById("test4").innerHTML=range.value;
+      })
+
+
+    </script>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,16 @@
+.color-picker{
+  background:rgb(73,73,73);         /* фон блока */
+  -moz-border-radius: 50%;    /* закругление для старых Mozilla Firefox */
+  -webkit-border-radius: 50%; /* закругление для старых Chrome и Safari */
+  -khtml-border-radius:50%;   /* закругл. для браузера Konquerer системы Linux */
+  border-radius: 50%;         /* закругление углов для всех, кто понимает */
+  padding:10px;
+}
+
+.color-picker .selector{
+  -moz-border-radius: 50%;    /* закругление для старых Mozilla Firefox */
+  -webkit-border-radius: 50%; /* закругление для старых Chrome и Safari */
+  -khtml-border-radius:50%;   /* закругл. для браузера Konquerer системы Linux */
+  border-radius: 50%;         /* закругление углов для всех, кто понимает */
+  border: 1px solid white;
+}

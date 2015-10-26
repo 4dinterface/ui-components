@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://C:/web/server/root/phisics/ui/components/range/Component-compiled.js" />
+        <item url="file://C:/web/server/root/phisics/ui/components/circles/Component-compiled.js" />
+        <item url="file://C:/web/server/root/phisics/ui/components/switch/Component-compiled.js" />
+        <item url="file://C:/web/server/root/phisics/ui/components/AbstractComponent-compiled.js" />
+        <item url="file://C:/web/server/root/phisics/ui/components/color-picker/Component-compiled.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://C:/web/server/root/phisics/ui-elements/components/range/Component-compiled.js" />
+      <root url="file://C:/web/server/root/phisics/ui-elements/components/circles/Component-compiled.js" />
+      <root url="file://C:/web/server/root/phisics/ui-elements/components/switch/Component-compiled.js" />
+      <root url="file://C:/web/server/root/phisics/ui-elements/components/AbstractComponent-compiled.js" />
+      <root url="file://C:/web/server/root/phisics/ui-elements/components/color-picker/Component-compiled.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

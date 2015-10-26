@@ -1,0 +1,46 @@
+.range-component{
+    height:20px;
+    background:rgb(73,73,73);
+    -moz-border-radius: 10px;    /* закругление для старых Mozilla Firefox */
+    -webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+    -khtml-border-radius:10px;   /* закругл. для браузера Konquerer системы Linux */
+    border-radius: 10px;         /* закругление углов для всех, кто понимает */
+    overflow: hidden;
+}
+
+.range-component .header{
+    height:18px;
+    width:18px;
+    position:relative;
+
+    background:rgb(100,234,236);
+    -moz-border-radius: 10px;    /* закругление для старых Mozilla Firefox */
+    -webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+    -khtml-border-radius:10px;   /* закругл. для браузера Konquerer системы Linux */
+    border-radius: 10px;         /* закругление углов для всех, кто понимает */
+    border: 1px solid rgb(73,73,73);
+
+}
+
+.range-component .point-header{
+    height:8px;
+    width:8px;
+    position:absolute;
+    left:5px;
+    top:5px;
+
+
+    background:rgb(73,73,73);
+    -moz-border-radius: 50%;    /* закругление для старых Mozilla Firefox */
+    -webkit-border-radius: 50%; /* закругление для старых Chrome и Safari */
+    -khtml-border-radius:50%;   /* закругл. для браузера Konquerer системы Linux */
+    border-radius: 50%;         /* закругление углов для всех, кто понимает */
+}
+
+.zone{
+    width:100%;
+    height:100%;
+    background: rgb(100,234,236);
+    position:absolute;
+    top:0px;
+}
