@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:/web/server/root/phisics/ui-elements/.idea/ui.iml" filepath="C:/web/server/root/phisics/ui-elements/.idea/ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ui-components.iml" filepath="$PROJECT_DIR$/.idea/ui-components.iml" />
     </modules>
   </component>
 </project>

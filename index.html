@@ -1,18 +1,6 @@
 <html>
   <head>
-    <script src="components/AbstractComponent-compiled.js"> </script>
 
-    <link rel="stylesheet" href="components/switch/style.css">
-    <script src="components/switch/Component-compiled.js"> </script>
-
-    <link rel="stylesheet" href="components/circles/style.css">
-    <script src="components/circles/Component-compiled.js"> </script>
-
-    <link rel="stylesheet" href="components/color-picker/style.css">
-    <script src="components/color-picker/Component-compiled.js"> </script>
-
-    <link rel="stylesheet" href="components/range/style.css">
-    <script src="components/range/Component-compiled.js"> </script>
 
     <style>
       @font-face {
@@ -104,15 +92,19 @@
       </tbody>
     </table>
 
-    <br/><br/>
+    <script src="components/AbstractComponent-compiled.js"> </script>
 
+    <link rel="stylesheet" href="components/switch/style.css">
+    <script src="components/switch/Component-compiled.js"> </script>
 
-    <br/></br>
+    <link rel="stylesheet" href="components/circles/style.css">
+    <script src="components/circles/Component-compiled.js"> </script>
 
-    <br/></br>
+    <link rel="stylesheet" href="components/color-picker/style.css">
+    <script src="components/color-picker/Component-compiled.js"> </script>
 
-
-    <br/></br>
+    <link rel="stylesheet" href="components/range/style.css">
+    <script src="components/range/Component-compiled.js"> </script>
 
     <script>
       var switchComp=new Switch({
@@ -121,15 +113,9 @@
 
           circle=Circles.create({
             id:           'circles-1',
-            radius:       60,
             value:        43,
             maxValue:     100,
-            width:        10,
-            duration:     400, //?
-            wrpClass:     'circles-wrp',
-            textClass:    'circles-text',
-            styleWrapper: true,
-            /*styleText:    true*/
+            styleWrapper: true
           }),
 
           picker=new ColorPicker({
@@ -144,23 +130,28 @@
       switchComp.on("change",function(){
         document.getElementById("test1").innerHTML=switchComp.value;
       })
+      document.getElementById("test1").innerHTML=switchComp.value;
 
 
       circle.on("change",function(){
         document.getElementById("test2").innerHTML=circle.value;
       })
+      document.getElementById("test2").innerHTML=circle.value;
 
 
       picker.on("change",function(){
         document.getElementById("test3").innerHTML=picker.value;
-      }),
+      });
+      document.getElementById("test3").innerHTML=picker.value;
 
       range.on("change",function(){
         document.getElementById("test4").innerHTML=range.value;
       })
-
+      document.getElementById("test4").innerHTML=range.value;
 
     </script>
+
+
 
 
   </body>

@@ -13,9 +13,13 @@ class Range extends AbstractComponent{
     this._onMouseMove=this._onMouseMove.bind(this);
     this._onMouseUp=this._onMouseUp.bind(this);
     this._onMouseDown=this._onMouseDown.bind(this);
-    this._headerWidth=20;
 
+    this._el.addEventListener("touchmove",this._onMouseMove);
+    //document.removeEventListener("mouseup",this._onMouseUp);
+
+    this._headerWidth=20;
     this._create();
+    this._value=0;
   }
 
   _create(){
@@ -48,15 +52,19 @@ class Range extends AbstractComponent{
     document.addEventListener("mouseup",this._onMouseUp);
   }
 
-  _onMouseMove(e){
-    var boundRect=this._el.getBoundingClientRect(),
-        pos=e.pageX-boundRect.left;
+  _onMouseMove(event){
+    var e=event.changedTouches?event.changedTouches[0]:event,
+        boundRect=this._el.getBoundingClientRect(),
+        pos=e.pageX-boundRect.left-10;
 
     if(pos>this._el.offsetWidth-this._headerWidth) pos=this._el.offsetWidth-this._headerWidth;
     if(pos<0) pos=0;
-
     this.update(pos);//TODO перенести в value
-    this.value=100/(this._el.offsetWidth-this._headerWidth)*pos;
+
+    this.value=100/(this._el.offsetWidth-this._header.offsetWidth) * pos;
+
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   _onMouseUp(e){
@@ -68,4 +76,5 @@ class Range extends AbstractComponent{
     this._header.style.marginLeft=(pos)+"px";
     this._zone.style.left=(pos+10)+"px";
   }
+
 }

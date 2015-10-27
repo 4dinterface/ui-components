@@ -1,4 +1,4 @@
-"use strict";
+п»ї"use strict";
 
 class ColorPicker extends AbstractComponent{
 
@@ -6,7 +6,7 @@ class ColorPicker extends AbstractComponent{
     super();
     var elId = options.id;
     this._el = document.getElementById(elId)||options.el;
-    this._el.style.position="relative";// TODO заменить враппером
+    this._el.style.position="relative";//
     this._el.className="color-picker";
     if (this._el === null) return;
 
@@ -18,12 +18,14 @@ class ColorPicker extends AbstractComponent{
     this._el.style.height=this._height+"px";
 
     this._create();
-    this._el.addEventListener("mousemove",this._onMove.bind(this))
-    this._el.addEventListener("mousedown",this._setColor.bind(this))
 
-    this._currentX=51;
-    this._currentY=51;
-    this._color="#00CEFF";
+    this._el.addEventListener("mousemove", this._onMove.bind(this));
+    this._el.addEventListener("mousedown", this._onClick.bind(this));
+
+    this._el.addEventListener("touchstart", this._onClick.bind(this));
+    this._el.addEventListener("touchmove", this._onMove.bind(this));
+
+    this._color="#00AAFF";
   }
 
   _create(){
@@ -52,7 +54,10 @@ class ColorPicker extends AbstractComponent{
     this._el.appendChild(this._face);
 
     var image = new Image();
-    image.onload =()=>this.ctx.drawImage(image, 0, 0, image.width, image.height); // draw the image on the canvas
+    image.onload =()=>{
+      this.ctx.drawImage(image, 0, 0, image.width, image.height);
+      this._setColor(52,52);
+    } // draw the image on the canvas
     image.src="components/color-picker/color-wheel.png";
   }
 
@@ -60,33 +65,50 @@ class ColorPicker extends AbstractComponent{
     return this._color;
   }
 
-  _setColor(e){
-    var imageData = this.ctx.getImageData(this._currentX, this._currentY, 1, 1),
+
+  _onClick(evt){
+    var pos=this._calc(evt);
+    if(pos) this._setColor(pos.x,pos.y);
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+
+  _onMove(evt){
+    var pos=this._calc(evt);
+    if(pos && (evt.buttons==1 || evt.changedTouches)) this._setColor(pos.x,pos.y);
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+
+
+  _calc(event){
+    var e=event.changedTouches?event.changedTouches[0]:event,
+        canvasRect=this.canvas.getBoundingClientRect(),
+        canvasX = Math.round(e.clientX - canvasRect.left),
+        canvasY = Math.round(e.clientY - canvasRect.top ),
+        imageData = this.ctx.getImageData(canvasX, canvasY, 1, 1);
+
+    if(imageData.data[3]==0) return false;
+    return{
+      x:canvasX,
+      y:canvasY
+    };
+  }
+
+  _setColor(x,y){
+    var imageData = this.ctx.getImageData(x, y, 1, 1),
         pixel = imageData.data,
         red=pixel[0].toString(16),
         green=pixel[1].toString(16),
         blue=pixel[2].toString(16);
 
-    this._selector.style.left=(this._currentX-2)+this.canvas.offsetLeft+"px";
-    this._selector.style.top=(this._currentY-2)+this.canvas.offsetTop+"px";
+    this._selector.style.left=(x-2)+this.canvas.offsetLeft+"px";
+    this._selector.style.top=(y-2)+this.canvas.offsetTop+"px";
 
     this._color="#"+(red.length<2?"0"+red:red);
     this._color+=green.length<2?"0"+green:green;
     this._color+=blue.length<2?"0"+blue:blue;
     this.fire("change",{});
-
-    console.log(this._color);
-  }
-
-  _onMove(e){
-    var canvasX = Math.floor(e.offsetX)-this.canvas.offsetLeft,
-        canvasY = Math.floor(e.offsetY)-this.canvas.offsetTop,
-        imageData = this.ctx.getImageData(canvasX, canvasY, 1, 1);
-
-    if(imageData.data[3]==0) return;
-    this._currentX=canvasX;
-    this._currentY=canvasY;
-    if(e.buttons==1) this._setColor(e);
   }
 
 
