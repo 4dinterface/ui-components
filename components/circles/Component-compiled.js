@@ -124,7 +124,9 @@ var Circles = (function (_AbstractComponent) {
       });
 
       this._input.addEventListener("keypress", function (e) {
-        if (e.keyCode < 47 || e.keyCode > 57) e.preventDefault();
+        var keyCode = e.keyCode || e.charCode; //для цифр этого должно быть достаточно
+        //console.log(keyCode,e.charCode);
+        if ((keyCode < 47 || keyCode > 57) && (e.keyCode != 8 && e.keyCode != 46)) e.preventDefault();
       });
 
       this._input.addEventListener("keyup", function (e) {
@@ -134,6 +136,7 @@ var Circles = (function (_AbstractComponent) {
         return _this.value = parseInt(_this._input.value);
       });
 
+      //колёсико мыши
       this._input.addEventListener('mousewheel', this.wheel.bind(this));
       this._input.addEventListener('DOMMouseScroll', this.wheel.bind(this));
 
@@ -344,6 +347,7 @@ var Circles = (function (_AbstractComponent) {
     set: function set(val) {
       // this._helper.style.opacity=1;
       if (this._value == val) return;
+
       if (val > this._maxValue) val = this._maxValue;
       if (val < 0 || isNaN(val)) val = 0;
 

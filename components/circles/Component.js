@@ -104,7 +104,9 @@ class Circles extends AbstractComponent {
     });
 
     this._input.addEventListener("keypress", (e) => {
-      if (e.keyCode < 47 || e.keyCode > 57) e.preventDefault();
+      var keyCode=e.keyCode||e.charCode; //для цифр этого должно быть достаточно
+      //console.log(keyCode,e.charCode);
+      if ((keyCode < 47 || keyCode > 57) && (e.keyCode!=8 && e.keyCode!=46)) e.preventDefault();
     });
 
     this._input.addEventListener("keyup", (e) => {
@@ -112,6 +114,7 @@ class Circles extends AbstractComponent {
     });
     this._input.addEventListener("change", (e) => this.value = parseInt(this._input.value));
 
+    //колёсико мыши
     this._input.addEventListener('mousewheel', this.wheel.bind(this));
     this._input.addEventListener('DOMMouseScroll', this.wheel.bind(this));
 
@@ -302,6 +305,7 @@ class Circles extends AbstractComponent {
   set value (val) {
     // this._helper.style.opacity=1;
     if (this._value == val) return;
+
     if (val > this._maxValue) val = this._maxValue;
     if (val < 0 || isNaN(val)) val = 0;
 
