@@ -32,7 +32,6 @@
     line-height: 30px;
     font-size: 12px;
     color: white;
-    font-family: Trebuchet, Arial, sans-serif;
     font-weight: bold;
     box-sizing: border-box;
 }
@@ -65,5 +64,5 @@
     margin-left: 0;
 }
 .switch-checkbox:checked + .switch-label .switch-switch {
-    right: 0px; 
+    right: 0px;
 }

@@ -2,10 +2,8 @@
 
 }
 
-
 .circle-input input{
   font-size: 40px;
-  /*text-align: center;*/
   -moz-appearance:textfield;
   position: absolute;
   top:  0;
@@ -15,6 +13,7 @@
   background:transparent;
   border:none;
   lineHeight:100%;
+  font-family: MilfordCondensedBold;
 }
 
 
@@ -25,6 +24,7 @@
 
 .circle-input .helper{
     right:15px;
-    top:40px;
+    top:45px;
     font-size: 20px;
+    font-family: MilfordCondensedBold;
 }

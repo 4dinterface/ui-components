@@ -11,13 +11,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Range = (function (_AbstractComponent) {
   _inherits(Range, _AbstractComponent);
 
+  /**
+   *
+   * @param options
+   */
+
   function Range(options) {
     _classCallCheck(this, Range);
 
     _get(Object.getPrototypeOf(Range.prototype), "constructor", this).call(this);
     var elId = options.id;
     this._el = document.getElementById(elId) || options.el;
-    this._el.style.position = "relative"; // TODO �������� ���������
+    this._el.style.position = "relative"; // TODO заменить враппером
     if (this._el === null) return;
     this._el.className = this._el.className ? +" " : "" + "range-component";
 
@@ -26,12 +31,16 @@ var Range = (function (_AbstractComponent) {
     this._onMouseDown = this._onMouseDown.bind(this);
 
     this._el.addEventListener("touchmove", this._onMouseMove);
-    //document.removeEventListener("mouseup",this._onMouseUp);
 
     this._headerWidth = 20;
     this._create();
     this._value = 0;
   }
+
+  /**
+   *
+   * @private
+   */
 
   _createClass(Range, [{
     key: "_create",
@@ -50,12 +59,28 @@ var Range = (function (_AbstractComponent) {
 
       this._header.addEventListener("mousedown", this._onMouseDown);
     }
+
+    /**
+     *
+     * @returns {number}
+     */
   }, {
     key: "_onMouseDown",
+
+    /**
+     *
+     * @private
+     */
     value: function _onMouseDown() {
       document.addEventListener("mousemove", this._onMouseMove);
       document.addEventListener("mouseup", this._onMouseUp);
     }
+
+    /**
+     *
+     * @param event
+     * @private
+     */
   }, {
     key: "_onMouseMove",
     value: function _onMouseMove(event) {
@@ -65,22 +90,34 @@ var Range = (function (_AbstractComponent) {
 
       if (pos > this._el.offsetWidth - this._headerWidth) pos = this._el.offsetWidth - this._headerWidth;
       if (pos < 0) pos = 0;
-      this.update(pos); //TODO ��������� � value
+      this._update(pos); //TODO перенести в value
 
       this.value = 100 / (this._el.offsetWidth - this._header.offsetWidth) * pos;
 
       event.preventDefault();
       event.stopPropagation();
     }
+
+    /**
+     *
+     * @param e
+     * @private
+     */
   }, {
     key: "_onMouseUp",
     value: function _onMouseUp(e) {
       document.removeEventListener("mousemove", this._onMouseMove);
       document.removeEventListener("mouseup", this._onMouseUp);
     }
+
+    /**
+     *
+     * @param pos
+     * @private
+     */
   }, {
-    key: "update",
-    value: function update(pos) {
+    key: "_update",
+    value: function _update(pos) {
       this._header.style.marginLeft = pos + "px";
       this._zone.style.left = pos + 10 + "px";
     }
@@ -89,6 +126,11 @@ var Range = (function (_AbstractComponent) {
     get: function get() {
       return Math.round(this._value);
     },
+
+    /**
+     *
+     * @param value {*}
+     */
     set: function set(value) {
       this._value = value;
       this.fire("change", {});

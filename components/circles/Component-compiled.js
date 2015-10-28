@@ -53,6 +53,7 @@ var Circles = (function (_AbstractComponent) {
   }
 
   /**
+   * создаёт элемент управления
    * @private
    */
 
@@ -73,6 +74,12 @@ var Circles = (function (_AbstractComponent) {
       this._el.innerHTML = '';
       this._el.appendChild(this._wrapContainer);
     }
+
+    /**
+     * создаёт враппер
+     * @returns {Circles}
+     * @private
+     */
   }, {
     key: "_createWrapper",
     value: function _createWrapper() {
@@ -88,6 +95,12 @@ var Circles = (function (_AbstractComponent) {
 
       return this;
     }
+
+    /**
+     * создаёт input для ввода
+     * @returns {Circles}
+     * @private
+     */
   }, {
     key: "_createInput",
     value: function _createInput() {
@@ -133,6 +146,11 @@ var Circles = (function (_AbstractComponent) {
 
       return this;
     }
+
+    /**
+     * проценты
+     * @private
+     */
   }, {
     key: "_createHelper",
     value: function _createHelper() {
@@ -141,6 +159,12 @@ var Circles = (function (_AbstractComponent) {
       this._helper.className = "helper";
       this._helper.innerHTML = "%";
     }
+
+    /**
+     * создаёт svg элемент
+     * @returns {Circles}
+     * @private
+     */
   }, {
     key: "_createSvg",
     value: function _createSvg() {
@@ -153,9 +177,18 @@ var Circles = (function (_AbstractComponent) {
       this._createPath(1, true, this._colors[1], this._valClass);
 
       this._movingPath = this._svg.getElementsByTagName('path')[1];
-
       return this;
     }
+
+    /**
+     * строит путь
+     * @param percentage
+     * @param open
+     * @param color
+     * @param pathClass
+     * @returns {Circles}
+     * @private
+     */
   }, {
     key: "_createPath",
     value: function _createPath(percentage, open, color, pathClass) {
@@ -171,6 +204,11 @@ var Circles = (function (_AbstractComponent) {
     }
   }, {
     key: "wheel",
+
+    /**
+     * обработчик события колёсика мышки
+     * @param event
+     */
     value: function wheel(event) {
       var delta = 0;
       delta = event.wheelDelta ? -event.wheelDelta / 120 : event.detail / 3;
@@ -179,32 +217,53 @@ var Circles = (function (_AbstractComponent) {
       if (delta < 0) this.value = this.value - 1;
 
       if (this._timeout) this._timeout = clearTimeout(this._timeout);
-      if (Math.abs(delta) > 0.3) this._inertia(delta, 100);
+      if (Math.abs(delta) > 0.3) this._inertion(delta, 100 / delta);
       event.preventDefault();
     }
+
+    /**
+     * изменение по инерции
+     * @param delta
+     * @param time
+     * @private
+     */
   }, {
-    key: "_inertia",
-    value: function _inertia(delta, time) {
+    key: "_inertion",
+    value: function _inertion(delta, time) {
       if (delta > 0) this.value = this.value + 1;
       if (delta < 0) this.value = this.value - 1;
-      time = time * 1.1; //�������� ���������� �� 10% �� ���.
-
-      //������������ �������� 180
-      if (time < 180) this._timeout = setTimeout(this._inertia.bind(this, delta, time), time);
-      console.log(delta);
+      time = time + 10;
+      if (time < 200) this._timeout = setTimeout(this._inertion.bind(this, delta, time), time);
     }
+
+    /**
+     * обработчик нажатия кнопки мыши
+     * @param event
+     * @private
+     */
   }, {
     key: "_onDown",
     value: function _onDown(event) {
       document.addEventListener('mousemove', this._onMove);
       document.addEventListener('mouseup', this._onUp);
     }
+
+    /**
+     * обработчик отпускания кнопки мыши
+     * @private
+     */
   }, {
     key: "_onUp",
     value: function _onUp() {
       document.removeEventListener('mousemove', this._onMove);
       document.removeEventListener('mouseup', this._onUp);
     }
+
+    /**
+     * обработчик перемещения
+     * @param event
+     * @private
+     */
   }, {
     key: "_onMove",
     value: function _onMove(event) {
@@ -223,6 +282,14 @@ var Circles = (function (_AbstractComponent) {
       }
       this._rad = rad;
     }
+
+    /**
+     * вычисляем
+     * @param percentage
+     * @param open
+     * @returns {*}
+     * @private
+     */
   }, {
     key: "_calculatePath",
     value: function _calculatePath(percentage, open) {
@@ -230,6 +297,14 @@ var Circles = (function (_AbstractComponent) {
           endPrecise = this._precise(end);
       return this._arc(endPrecise, open);
     }
+
+    /**
+     * дуга
+     * @param end
+     * @param open
+     * @returns {string}
+     * @private
+     */
   }, {
     key: "_arc",
     value: function _arc(end, open) {
@@ -245,6 +320,13 @@ var Circles = (function (_AbstractComponent) {
       this._radius + this._radiusAdjusted * Math.cos(endAdjusted), this._radius + this._radiusAdjusted * Math.sin(endAdjusted), open ? '' : 'Z' // close
       ].join(' ');
     }
+
+    /**
+     * избавимся от лишних знаков
+     * @param value
+     * @returns {number}
+     * @private
+     */
   }, {
     key: "_precise",
     value: function _precise(value) {
@@ -252,20 +334,22 @@ var Circles = (function (_AbstractComponent) {
     }
 
     /*========================================= Public API =========================================================*/
+
+    /**
+     * установит значение
+     * @param val
+     */
   }, {
     key: "value",
-    get: function get() {
-      return this._value;
-    },
-    set: function set(value) {
+    set: function set(val) {
       // this._helper.style.opacity=1;
-      if (this._value == value) return;
-      if (value > this._maxValue) value = this._maxValue;
-      if (value < 0 || isNaN(value)) value = 0;
+      if (this._value == val) return;
+      if (val > this._maxValue) val = this._maxValue;
+      if (val < 0 || isNaN(val)) val = 0;
 
-      this._value = value;
-      this._movingPath.setAttribute('d', this._calculatePath(value, true));
-      this._input.value = value; //this._getText(this.getValueFromPercent(value));
+      this._value = val;
+      this._movingPath.setAttribute('d', this._calculatePath(val, true));
+      this._input.value = val; //this._getText(this.getValueFromPercent(val));
 
       var width = this._input.value.toString().length * 10,
           start = 50;
@@ -274,12 +358,29 @@ var Circles = (function (_AbstractComponent) {
       this._helper.style.left = start + 6 + width + "px";
 
       this.fire("change", {});
+    },
+
+    /**
+     * вернёт текущее значение
+     */
+    get: function get() {
+      return this._value;
     }
+
+    /**
+     * вернёт максимальное значение
+     * @returns {*|number}
+     */
   }, {
     key: "maxValue",
     get: function get() {
       return this._maxValue;
     }
+
+    /**
+     * фабрика для создания экземпляров
+     * @param options
+     */
   }], [{
     key: "create",
     value: function create(options) {

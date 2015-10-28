@@ -11,6 +11,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ColorPicker = (function (_AbstractComponent) {
   _inherits(ColorPicker, _AbstractComponent);
 
+  /**
+   *
+   * @param options
+   */
+
   function ColorPicker(options) {
     _classCallCheck(this, ColorPicker);
 
@@ -38,6 +43,11 @@ var ColorPicker = (function (_AbstractComponent) {
 
     this._color = "#00AAFF";
   }
+
+  /**
+   *
+   * @private
+   */
 
   _createClass(ColorPicker, [{
     key: "_create",
@@ -75,14 +85,31 @@ var ColorPicker = (function (_AbstractComponent) {
       }; // draw the image on the canvas
       image.src = "components/color-picker/color-wheel.png";
     }
+
+    /**
+     *
+     * @returns {string|string|*}
+     */
   }, {
     key: "_onClick",
+
+    /**
+     *
+     * @param evt
+     * @private
+     */
     value: function _onClick(evt) {
       var pos = this._calc(evt);
       if (pos) this._setColor(pos.x, pos.y);
       evt.preventDefault();
       evt.stopPropagation();
     }
+
+    /**
+     *
+     * @param evt
+     * @private
+     */
   }, {
     key: "_onMove",
     value: function _onMove(evt) {
@@ -91,6 +118,13 @@ var ColorPicker = (function (_AbstractComponent) {
       evt.preventDefault();
       evt.stopPropagation();
     }
+
+    /**
+     *
+     * @param event
+     * @returns {*}
+     * @private
+     */
   }, {
     key: "_calc",
     value: function _calc(event) {
@@ -106,6 +140,13 @@ var ColorPicker = (function (_AbstractComponent) {
         y: canvasY
       };
     }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @private
+     */
   }, {
     key: "_setColor",
     value: function _setColor(x, y) {

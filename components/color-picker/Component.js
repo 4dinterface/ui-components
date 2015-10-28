@@ -1,7 +1,10 @@
 ﻿"use strict";
 
 class ColorPicker extends AbstractComponent{
-
+  /**
+   *
+   * @param options
+   */
   constructor(options){
     super();
     var elId = options.id;
@@ -28,6 +31,10 @@ class ColorPicker extends AbstractComponent{
     this._color="#00AAFF";
   }
 
+  /**
+   *
+   * @private
+   */
   _create(){
     this.canvas=document.createElement('canvas');
     this.canvas.width=this._width;
@@ -61,11 +68,19 @@ class ColorPicker extends AbstractComponent{
     image.src="components/color-picker/color-wheel.png";
   }
 
+  /**
+   *
+   * @returns {string|string|*}
+   */
   get value(){
     return this._color;
   }
 
-
+  /**
+   *
+   * @param evt
+   * @private
+   */
   _onClick(evt){
     var pos=this._calc(evt);
     if(pos) this._setColor(pos.x,pos.y);
@@ -73,6 +88,11 @@ class ColorPicker extends AbstractComponent{
     evt.stopPropagation();
   }
 
+  /**
+   *
+   * @param evt
+   * @private
+   */
   _onMove(evt){
     var pos=this._calc(evt);
     if(pos && (evt.buttons==1 || evt.changedTouches)) this._setColor(pos.x,pos.y);
@@ -80,7 +100,12 @@ class ColorPicker extends AbstractComponent{
     evt.stopPropagation();
   }
 
-
+  /**
+   *
+   * @param event
+   * @returns {*}
+   * @private
+   */
   _calc(event){
     var e=event.changedTouches?event.changedTouches[0]:event,
         canvasRect=this.canvas.getBoundingClientRect(),
@@ -95,6 +120,12 @@ class ColorPicker extends AbstractComponent{
     };
   }
 
+  /**
+   *
+   * @param x
+   * @param y
+   * @private
+   */
   _setColor(x,y){
     var imageData = this.ctx.getImageData(x, y, 1, 1),
         pixel = imageData.data,
@@ -110,6 +141,4 @@ class ColorPicker extends AbstractComponent{
     this._color+=blue.length<2?"0"+blue:blue;
     this.fire("change",{});
   }
-
-
 }

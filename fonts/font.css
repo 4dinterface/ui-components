@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'MilfordCondensedBold';
+  src: url('MilfordCondensedBold.eot');
+  src: url('MilfordCondensedBold.eot?#iefix') format('embedded-opentype'),
+       url('MilfordCondensedBold.woff') format('woff'),
+       url('MilfordCondensedBold.svg#MilfordCondensedBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
